@@ -1,20 +1,16 @@
-# Use an official Node.js runtime as the base image
-FROM node:14
-
-# Set the working directory in the container to /app
+# Multi-stage Dockerfile for modern RxJS 7+ TypeScript application
+FROM node:22-alpine AS builder
 WORKDIR /app
-
-# Copy package.json and package-lock.json into the working directory
-COPY package*.json ./
-
-# Install any needed packages specified in package.json
+COPY package*.json tsconfig.json vitest.config.ts ./
 RUN npm install
+COPY src/ ./src/
+COPY tests/ ./tests/
+RUN npm test && npm run build
 
-# Bundle the app source inside the Docker image
-COPY . .
-
-# Make port 3000 available to the world outside the Docker container
-EXPOSE 3000
-
-# Define the command to run the app
-CMD [ "node", "index.js" ]
+FROM node:22-alpine AS runner
+WORKDIR /app
+COPY package*.json ./
+RUN npm install --omit=dev
+COPY --from=builder /app/dist ./dist
+USER node
+CMD ["node", "dist/index.js"]
