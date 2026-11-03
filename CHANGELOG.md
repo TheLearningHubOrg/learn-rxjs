@@ -1,11 +1,10 @@
-# [1.47.0](https://github.com/TheLearningHubOrg/learn-rxjs/compare/v1.46.0...v1.47.0) (2026-11-03)
+# [1.48.0](https://github.com/TheLearningHubOrg/learn-rxjs/compare/v1.46.0...v1.48.0) (2026-11-03)
 
 
 ### Features
 
-* restructure the README to the 7-stage standard and deepen stages 1-3 (observables, creation operators, transformation and filtering)
-* add a TypeScript starter project with Vitest tests, including TestScheduler marble tests
-* add CI, a multi-stage Dockerfile and PA_TOKEN-guarded release automation
+* bootstrap modern RxJS 7+ TypeScript reactive architecture matching learn-angular parity ([3fcee3c](https://github.com/TheLearningHubOrg/learn-rxjs/commit/3fcee3c02e602a4a0387a3d67e7b78fbb0789e3e))
+* restructure to the 7-stage standard, deepen stages 1-3, add starter project, CI, Docker and releases ([b2045cb](https://github.com/TheLearningHubOrg/learn-rxjs/commit/b2045cb240d4930acc0bbef7216e9e0dfe1c0d65))
 
 
 
@@ -42,15 +41,6 @@
 ### Features
 
 * Create SECURITY.md ([b080eb7](https://github.com/TheLearningHubOrg/learn-rxjs/commit/b080eb7182d26d6d3b44d86da77275d2fc877a99))
-
-
-
-# [1.42.0](https://github.com/TheLearningHubOrg/learn-rxjs/compare/v1.41.0...v1.42.0) (2024-05-09)
-
-
-### Features
-
-* Create CODE_OF_CONDUCT.md ([7998ec4](https://github.com/TheLearningHubOrg/learn-rxjs/commit/7998ec414f281333cc76efba9b0006b0b768fce8))
 
 
 
