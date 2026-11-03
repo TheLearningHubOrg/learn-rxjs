@@ -1,31 +1,17 @@
 import {
-  Observable,
-  Subject,
   BehaviorSubject,
-  ReplaySubject,
-  of,
-  from,
-  interval,
-  timer,
-  throwError,
-  combineLatest,
-  forkJoin
-} from 'rxjs';
-import {
-  map,
-  filter,
-  scan,
-  take,
-  switchMap,
-  mergeMap,
-  concatMap,
-  exhaustMap,
+  Observable,
   catchError,
-  retry,
-  debounceTime,
+  concatMap,
   distinctUntilChanged,
-  shareReplay
-} from 'rxjs/operators';
+  from,
+  map,
+  mergeMap,
+  of,
+  retry,
+  switchMap,
+  timer,
+} from 'rxjs';
 
 /**
  * Reactive State Store built with BehaviorSubject.

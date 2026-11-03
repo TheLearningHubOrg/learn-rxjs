@@ -1,71 +1,71 @@
 /**
- * The Learning Hub - RxJS 7+ Reactive Architecture Roadmap
+ * The seven stages of this guide, mirrored from README.md so the demo runner
+ * can print the learning path next to the code that belongs to each stage.
  */
 
 export interface RoadmapStage {
   stageNumber: number;
   title: string;
   domainFocus: string;
-  completed: boolean;
+  /** Folder in src/ that holds the runnable code for the stage, if any. */
+  codePath?: string;
   keyTopics: string[];
 }
 
 export const RXJS_STAGES: RoadmapStage[] = [
   {
     stageNumber: 1,
-    title: "Foundations of Reactive Streams & Push-Based Architecture",
-    domainFocus: "Observer Pattern, Iterable vs Observable duality, cold vs hot observables, subscription lifecycle",
-    completed: true,
-    keyTopics: ["Observable Producer Contract", "Observer (next, error, complete)", "Subscription & Teardown Logic", "Unicast vs Multicast"]
+    title: 'Reactive Foundations: Observables, Observers & Subscriptions',
+    domainFocus: 'The Observable contract, observers, teardown, sync vs async delivery, cold vs hot',
+    codePath: 'src/stage1',
+    keyTopics: ['new Observable()', 'subscribe()', 'Subscription.unsubscribe()', 'teardown functions'],
   },
   {
     stageNumber: 2,
-    title: "Creational Operators & Event Bridge Primitives",
-    domainFocus: "of, from, fromEvent, interval, timer, defer, ajax, and webSocket streams",
-    completed: true,
-    keyTopics: ["fromEvent DOM/Node bindings", "defer Dynamic Generation", "from Promise Bridge", "interval/timer Scheduling"]
+    title: 'Creation Operators & the pipe() Pipeline',
+    domainFocus: 'of, from, range, interval, timer, defer, fromEvent, bindNodeCallback, firstValueFrom',
+    codePath: 'src/stage2',
+    keyTopics: ['pipe()', 'OperatorFunction', 'defer() laziness', 'Promise interop'],
   },
   {
     stageNumber: 3,
-    title: "Stream Transformation & Filtering Mechanics",
-    domainFocus: "Pure functional pipelines: map, filter, scan, reduce, distinctUntilChanged, debounceTime, throttleTime",
-    completed: true,
-    keyTopics: ["scan State Accumulation", "distinctUntilChanged Deduplication", "debounceTime vs throttleTime", "takeUntil Declarative Unsubscription"]
+    title: 'Transformation, Filtering & Rate-Limiting Operators',
+    domainFocus: 'map, scan, filter, distinctUntilChanged, takeUntil, debounceTime, throttleTime',
+    codePath: 'src/stage3',
+    keyTopics: ['scan state', 'debounceTime vs throttleTime', 'typeahead pipeline', 'switchMap preview'],
   },
   {
     stageNumber: 4,
-    title: "Higher-Order Observables & Flattening Strategies",
-    domainFocus: "Inner stream concurrency control: switchMap, mergeMap, concatMap, exhaustMap",
-    completed: true,
-    keyTopics: ["switchMap Cancellation", "mergeMap Concurrent Processing", "concatMap Queued Sequential Execution", "exhaustMap Ignore Strategy"]
+    title: 'Higher-Order Mapping, Combination & Error Handling',
+    domainFocus: 'switchMap, mergeMap, concatMap, exhaustMap, combineLatest, forkJoin, catchError, retry',
+    codePath: 'src/observables',
+    keyTopics: ['flattening strategies', 'join operators', 'retry with backoff', 'fallback streams'],
   },
   {
     stageNumber: 5,
-    title: "Multicasting, State Containers & Subjects",
-    domainFocus: "Subject, BehaviorSubject, ReplaySubject, AsyncSubject, shareReplay caching",
-    completed: true,
-    keyTopics: ["BehaviorSubject State Stores", "ReplaySubject Buffer Retention", "shareReplay(1) Request Deduplication", "AsyncSubject Completion Emission"]
+    title: 'Subjects, Multicasting & Schedulers',
+    domainFocus: 'Subject, BehaviorSubject, ReplaySubject, share, shareReplay, asyncScheduler',
+    codePath: 'src/observables',
+    keyTopics: ['BehaviorSubject store', 'shareReplay(1)', 'connectable', 'scheduler queues'],
   },
   {
     stageNumber: 6,
-    title: "Combination, Error Resilience & Backpressure",
-    domainFocus: "combineLatest, forkJoin, withLatestFrom, zip, catchError, retry, retryWhen",
-    completed: true,
-    keyTopics: ["combineLatest Tuple Synchronization", "forkJoin Parallel Completion", "Exponential Backoff Retries", "catchError Fallback Streams"]
+    title: 'Utility Operators, Testing & Performance',
+    domainFocus: 'tap, delay, timeout, materialize, TestScheduler, leak prevention',
+    keyTopics: ['marble testing', 'timeout config', 'memory leaks', 'bundle size'],
   },
   {
     stageNumber: 7,
-    title: "Staff Reactive Architect Interview Handbook",
-    domainFocus: "40+ staff scenario Q&As, memory leak forensics, schedulers (Asap, Async, Queue), marble testing",
-    completed: true,
-    keyTopics: ["TestScheduler Marble Syntax", "Schedulers & Microtasks", "Long-lived Subscription Leaks Forensics", "Complex Stream State Machines"]
-  }
+    title: 'Staff RxJS Engineer Interview Handbook & Cheatsheet',
+    domainFocus: '40+ interview questions, scenario debugging, staff cheatsheet',
+    keyTopics: ['internals', 'failure modes', 'architecture trade-offs', 'migration strategy'],
+  },
 ];
 
-export function getCompletedCount(): number {
-  return RXJS_STAGES.filter(s => s.completed).length;
+export function getStage(stageNumber: number): RoadmapStage | undefined {
+  return RXJS_STAGES.find((s) => s.stageNumber === stageNumber);
 }
 
-export function getProgressPercentage(): number {
-  return Math.round((getCompletedCount() / RXJS_STAGES.length) * 100);
+export function stagesWithCode(): RoadmapStage[] {
+  return RXJS_STAGES.filter((s) => s.codePath !== undefined);
 }

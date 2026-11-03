@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { ReactiveStateStore, runHigherOrderPipeline, executeResilientPipeline } from '../src/observables/stream-lab.js';
-import { RXJS_STAGES, getCompletedCount, getProgressPercentage } from '../src/types/roadmap.js';
+import { RXJS_STAGES, getStage, stagesWithCode } from '../src/types/roadmap.js';
 
 describe('ReactiveStateStore', () => {
   it('initializes with default state and updates correctly', () => {
@@ -38,6 +38,11 @@ describe('Higher-Order Concurrency Pipelines', () => {
     const results = await runHigherOrderPipeline('concat', [1, 2, 3]);
     expect(results).toEqual(['Item-1-Done', 'Item-2-Done', 'Item-3-Done']);
   });
+
+  it('mergeMap runs inners concurrently, so the shortest delay finishes first', async () => {
+    const results = await runHigherOrderPipeline('merge', [1, 2, 3]);
+    expect(results).toEqual(['Item-3-Done', 'Item-2-Done', 'Item-1-Done']);
+  });
 });
 
 describe('Resilient Pipeline & Error Recovery', () => {
@@ -55,10 +60,10 @@ describe('Resilient Pipeline & Error Recovery', () => {
   });
 });
 
-describe('RxJS 7-Stage Pedagogical Roadmap', () => {
-  it('defines 7 stages with 100% completion metrics', () => {
-    expect(RXJS_STAGES).toHaveLength(7);
-    expect(getCompletedCount()).toBe(7);
-    expect(getProgressPercentage()).toBe(100);
+describe('Roadmap metadata', () => {
+  it('lists the seven stages in order', () => {
+    expect(RXJS_STAGES.map((s) => s.stageNumber)).toEqual([1, 2, 3, 4, 5, 6, 7]);
+    expect(getStage(3)?.codePath).toBe('src/stage3');
+    expect(stagesWithCode().length).toBeGreaterThanOrEqual(3);
   });
 });
