@@ -1,6 +1,7 @@
 {
   "name": "learn-rxjs",
   "version": "1.48.0",
+  "private": true,
   "description": "Learn RxJS: a 7-stage guide to reactive programming with runnable TypeScript examples and tests.",
   "type": "module",
   "main": "dist/index.js",
